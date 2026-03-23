@@ -1,0 +1,11 @@
+1、np.save 已激活：
+
+   代码现在会生成 文件名.npy。
+
+   我加了 depth.astype(np.float32)，这是为了防止 numpy 默认保存为 float64，float32 既节省空间又符合 PyTorch/CUDA 的标准精度。
+
+2、可视化保留：
+
+   我保留了你的可视化代码（viridis_r 配色），并将输出文件名改为了 文件名_vis.png。
+
+   这样你的输出文件夹里会有成对的文件：一个用于跑代码的 .npy，一个用于给你确认效果的 _vis.png。

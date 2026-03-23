@@ -1,0 +1,15 @@
+# 1. 克隆官方仓库
+git clone https://github.com/DepthAnything/Depth-Anything-V2.git
+cd Depth-Anything-V2
+
+# 2. 安装依赖 (建议在虚拟环境中进行)
+pip install -r requirements.txt
+
+# 3.下载权重文件
+在 Depth-Anything-V2 目录下创建一个 checkpoints 文件夹，并下载权重
+wget -O checkpoints/depth_anything_v2_vitb.pth https://hf-mirror.com/depth-anything/Depth-Anything-V2-Base/resolve/main/depth_anything_v2_vitb.pth?download=true
+
+# 4.创建一个 Python 脚本（run_underwater.py），写入以下代码来生成深度图，记得改路径
+
+#5.调用deepanything输出深度图
+python run_underwater.py

@@ -1,0 +1,4 @@
+visualize_depth.py文件是用来给render的vis深度图转化成jpg的脚本
+运行是：python visualize_depth.py
+
+Depth-Anything-V2里面的run_underwater.py是用来生成深度图的，使用的是deepanything

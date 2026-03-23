@@ -1,0 +1,70 @@
+python train.py -s /root/autodl-tmp/data/db/playroom --iterations 10000    
+和3DGS一样
+cd submodules/diff-gaussian-rasterization
+python setup.py install
+
+cd ../simple-knn
+python setup.py install
+
+
+train.py里面已经融入render.py，所以不需要再单独render了
+加入物理模型之后要加新的指令use_seasplat
+
+
+
+# 深度约束--lambda_depth 0.1可以这样修改
+
+python train-L1.py -s "/root/autodl-tmp/Sea-thru-NeRf/IUI3-RedSea" \
+      -m "/root/autodl-tmp/output-L1/IUI3-RedSea1" \
+      --use_seasplat \
+      --iterations 30000 \
+      --checkpoint_iterations 20000 30000 \
+      --start_seasplat_iter 20000 \
+      --seasplat_lr 0.005 \
+      --lambda_bs 10.0 \
+      --lambda_gw 0.2 \
+      --densify_grad_threshold 0.0002 \
+      --lambda_depth 0.1 \
+      --eval
+
+
+python render1.py \
+    -m /root/autodl-tmp/output-vggt-test/IUI3-RedSea\
+    --use_seasplat
+
+python metrics.py \
+    -m "/root/autodl-tmp/output-L1/IUI3-RedSea-0.1" \
+    -s "/root/autodl-tmp/Sea-thru-NeRf/Curasao"
+
+
+
+
+取消物理模型
+python train.py -s "F:\科研\数据集\Sea-thru-NeRf\Curasao-vggt" `
+    -m "F:\科研\跑过的代码\关于2DGS的代码及修改\水下2dgs+深度约束\output\Curasao-vggt" `
+    --iterations 30000 `
+    --checkpoint_iterations 30000 `
+    --densify_grad_threshold 0.0002 `
+    --lambda_depth 0.1 `
+    --eval
+
+得到放射变换尺度
+python utils/make_depth_scale.py \
+    --base_dir "/root/autodl-tmp/Sea-thru-NeRf-vggt/Panama" \
+    --depths_dir "/root/autodl-tmp/Sea-thru-NeRf-vggt/Panama/depths" \
+    --model_type bin
+
+
+
+python train-pearson-3.22.py -s /root/autodl-tmp/Sea-thru-NeRf/IUI3-RedSea \
+       -m "/root/autodl-tmp/output-new-pearson/IUI3-RedSea-3.23-语义特征" \
+       --use_seasplat \
+       --iterations 30000 \
+       --start_seasplat_iter 25000 \
+       --checkpoint_iterations 15000 \
+       --seasplat_lr 0.001 \
+       --lambda_bs 0.1 \
+       --lambda_gw 0.01 \
+       --lambda_depth 0.1 \
+       --eval \
+       --port 6010

@@ -1,0 +1,11 @@
+build/
+__pycache__/
+*.pyc
+*.pth
+*.ply
+data/
+datasets/
+output/
+eval_result/
+.vscode/
+.idea/
